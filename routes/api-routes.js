@@ -1,49 +1,52 @@
 const db = require("../models");
 
-
-
-
-module.exports = function(app) {
-    app.get("/api/authors", function(req, res) {
-      // Here we add an "include" property to our options in our findAll query
-      // We set the value to an array of the models we want to include in a left outer join
-      // In this case, just db.Post
-      db.Author.findAll({
-        include: [db.Post]
-      }).then(function(dbAuthor) {
-        res.json(dbAuthor);
-      });
+module.exports = (app) => {
+  app.get("/workouts", (req, res) => {
+    // Here we add an "include" property to our options in our findAll query
+    // We set the value to an array of the models we want to include in a left outer join
+    // In this case, just db.Post
+    db.Workout.find({}).then((dbWorkout) => {
+      res.json(dbWorkout);
     });
-  
-    app.get("/api/authors/:id", function(req, res) {
-      // Here we add an "include" property to our options in our findOne query
-      // We set the value to an array of the models we want to include in a left outer join
-      // In this case, just db.Post
-      db.Author.findOne({
-        where: {
-          id: req.params.id
+  });
+
+  app.put("/workouts/:id", ({ params, body }, res) => {
+    console.log(body);
+    db.Workout.findByIdAndUpdate(
+      params.id,
+      {
+        $push: {
+          exercises: body,
         },
-        include: [db.Post]
-      }).then(function(dbAuthor) {
-        res.json(dbAuthor);
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    )
+      .then((dbWorkout) => {
+        res.json(dbWorkout);
+      })
+      .catch((err) => {
+        res.json(err);
       });
-    });
-  
-    app.post("/api/authors", function(req, res) {
-      db.Author.create(req.body).then(function(dbAuthor) {
-        res.json(dbAuthor);
+  });
+
+  app.post("/workouts", (req, res) => {
+    db.Workout.create({})
+      .then((dbWorkout) => {
+        res.json(dbWorkout);
+      })
+      .catch((err) => {
+        res.json(err);
       });
-    });
-  
-    app.delete("/api/authors/:id", function(req, res) {
-      db.Author.destroy({
-        where: {
-          id: req.params.id
-        }
-      }).then(function(dbAuthor) {
-        res.json(dbAuthor);
+  });
+
+  app.get("/workouts/range", (req, res) => {
+    db.Workout.find({})
+      .limit(7)
+      .then((dbWorkout) => {
+        res.json(dbWorkout);
       });
-    });
-  
-  };
-  
+  });
+};
