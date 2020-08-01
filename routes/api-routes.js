@@ -10,13 +10,12 @@ router.get("/workouts", (req, res) => {
   });
 });
 
-router.put("/workouts/:id", ({ params, body }, res) => {
-  console.log(body);
+router.put("/workouts/:id", (req, res) => {
   db.Workout.findByIdAndUpdate(
-    params.id,
+    req.params.id,
     {
       $push: {
-        exercises: body,
+        exercises: req.body,
       },
     },
     {
