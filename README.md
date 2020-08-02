@@ -19,7 +19,7 @@ https://warm-sierra-59423.herokuapp.com/
 
 ## Functioning
 
-![gif](https://i.imgur.com/Uehxgrv.gif)
+![gif](https://i.imgur.com/1dnCbTb.gif)
 
 ## Installation
 
