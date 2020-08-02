@@ -15,8 +15,7 @@ This is a website used to track workouts that you've done
 
 ## Website Link
 
-https://warm-sierra-59423.herokuapp.com/
-
+https://intense-mountain-97572.herokuapp.com
 ## Functioning
 
 ![gif](https://i.imgur.com/1dnCbTb.gif)
